@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+	{% if searched %}
+	<h2>search for {{ searched }}</h2>
+	<br/>
+	{% for movie in movies %}
+		{{ movie }}<br/>
+	{% endfor %}
+	{% else %}
+		<h2>hey you forgot to search</h2>
+	{% endif %}
+</center>
+{% endblock %}
