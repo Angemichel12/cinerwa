@@ -13,6 +13,15 @@ from django.views.generic import(
  	UpdateView,
  	DeleteView,
  	)
+def search_movie(request):
+	if request.method == "POST":
+		searched = request.POST['searched']
+		movies = Movies.objects.filter(title__contains = searched)
+
+		return render(request, 'search_movie.html', {'movies':movies})
+	else:
+		return render(request, 'search_movie.html', {'searched':searched})
+
 
 def favourite_add(request, id):
 	movie = get_object_or_404(Movies, pk=id)
@@ -91,6 +100,8 @@ def movie_favourite_list(request):
 
 	}
 	return render(request, 'favourite.html', context)
+
+
 
 
 
