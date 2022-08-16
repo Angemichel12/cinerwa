@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import(homepage, 
 	MovieListView, 
 	MovieDetailView, 
@@ -14,8 +16,7 @@ from .views import(homepage,
 
 
 urlpatterns = [
-	path('', homepage, name='home'),
-	path('movies_list/', MovieListView.as_view(), name='movies_list'),
+	path('', MovieListView.as_view(), name='home'),
 	path('add_movie/', MovieCreateView.as_view(), name='add_movie'),
 	path('movies_detail/<int:pk>/', MovieDetailView.as_view(), name='movies_detail'),
 	path('movies_detail/<int:pk>/update/', MovieUpdateView.as_view(), name='movie_update'),
@@ -25,3 +26,6 @@ urlpatterns = [
 	path('search_movie', search_movie, name='search-movie'),
 
 	]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

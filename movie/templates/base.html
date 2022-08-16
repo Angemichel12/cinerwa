@@ -1,310 +1,111 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Cinerwa</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %} "/>
+    </head>
+  <body id="page-top">
 
-<head>
- <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="./assets/images/icon.png" type="image/png">
-  <title>CineFlix</title>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-md bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">Cinerwa</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'home' %}">Home</a></li>
 
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="{%static 'css/main.css' %}">
-  <link rel="stylesheet" href="{% static 'media_query.css' %}">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'add_movie' %}">Add Movie</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#">profile</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'logout' %}">Logout</a></li>
 
-  <!--
-    - google font link
-  -->
-  <link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900" rel="stylesheet" />
-</head>
+                        {% else %}
 
-<body>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'about' %}">About</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'login' %}">Login</a></li>
 
-
-
-
-  <!--
-    - main container
-  -->
-  <div class="container">
-
-    <!--
-      - #HEADER SECTION
-    -->
-
-    <header class="">
-      <div class="navbar">
-
-        <!--
-          - menu button for small screen
-        -->
-        <button class="navbar-menu-btn">
-          <span class="one"></span>
-          <span class="two"></span>
-          <span class="three"></span>
-        </button>
-
-
-        <a href="#" class="navbar-brand">
-          <img src="{% static 'images/logo.png' %}" alt="">
-        </a>
-
-        <!--
-          - navbar navigation
-        -->
-
-        <nav class="">
-          <ul class="navbar-nav">
-          {% if user.is_authenticated %}
-            <li> <a href="{% url 'home' %}" class="navbar-link">Home</a> </li>
-            <li> <a href="{% url 'movies_list' %}" class="navbar-link">Movie List</a> </li>
-            <li> <a href="{% url 'add_movie' %}" class="navbar-link">Add Movie</a> </li>
-            <li> <a href="{% url 'profile' %}" class="navbar-link">profile</a> </li>
-          {% else %}
-            <li> <a href="{% url 'home' %}" class="navbar-link">Home</a> </li>
-            <li> <a href="#category" class="navbar-link">Category</a> </li>
-            <li> <a href="#live" class="navbar-link  indicator">LIVE</a> </li>
-
-          {% endif %}
-
-          </ul>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
         </nav>
+<!-- end of  nav bar -->
 
-        <!--
-          - search and sign-in
-        -->
-
-        <div class="navbar-actions">
-
-          <form method="POST" action="{% url 'search-movie' %}" class="navbar-form">
-            {% csrf_token %}
-            <input type="search" name="searched" placeholder="search Movie..." class="navbar-form-search">
-
-            <button class="navbar-form-btn" type="submit">
-              <ion-icon name="search-outline"></ion-icon>
-            </button>
-
-            <button class="navbar-form-close">
-              <ion-icon name="close-circle-outline"></ion-icon>
-            </button>
-          </form>
-
-
-          <!--
-            - search button for small screen
-          -->
-
-          <button class="navbar-search-btn">
-            <ion-icon name="search-outline"></ion-icon>
-          </button>
-          {% if user.is_authenticated %}
-          <a href="{% url 'logout' %}" class="navbar-signin">
-            <span>Sign out</span>
-            <ion-icon name="log-in-outline"></ion-icon>
-          </a>
-          {% else %}
-
-            <a href="{% url 'login' %}" class="navbar-signin">
-            <span>Sign in</span>
-            <ion-icon name="log-in-outline"></ion-icon>
-          </a>
-          {% endif %}
-
-        </div>
-
-      </div>
-    </header>
-    <!-- content block -->
-
-    {% block content %}
-
-    {% endblock %}
-    
-
-
- <!--
-        - #CATEGORY SECTION
-      -->
-      <section class="category" id="category">
-
-        <h2 class="section-heading">Category</h2>
-
-        <div class="category-grid">
-
-          <div class="category-card">
-            <img src="{% static 'images/action.jpg' %}" alt="" class="card-img">
-            <div class="name">Action</div>
-            <div class="total">100</div>
+<!-- messages -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
           </div>
+    {% endfor %}
+{% endif %}
 
-          <div class="category-card">
-            <img src="{% static 'images/comedy.jpg' %}" alt="" class="card-img">
-            <div class="name">Comedy</div>
-            <div class="total">50</div>
-          </div>
+{% block content %}
 
-          <div class="category-card">
-            <img src="{% static 'images/thriller.webp' %}" alt="" class="card-img">
-            <div class="name">Thriller</div>
-            <div class="total">20</div>
-          </div>
+{% endblock %}
 
-          <div class="category-card">
-            <img src="{% static 'images/horror.jpg' %}" alt="" class="card-img">
-            <div class="name">Horror</div>
-            <div class="total">80</div>
-          </div>
-
-          <div class="category-card">
-            <img src="{% static 'images/adventure.jpg' %}" alt="" class="card-img">
-            <div class="name">Adventure</div>
-            <div class="total">100</div>
-          </div>
-
-          <div class="category-card">
-            <img src="{% static 'images/animated.jpg' %}" alt="" class="card-img">
-            <div class="name">Animated</div>
-            <div class="total">50</div>
-          </div>
-
-          <div class="category-card">
-            <img src="{% static 'images/crime.jpg' %}" alt="" class="card-img">
-            <div class="name">Crime</div>
-            <div class="total">20</div>
-          </div>
-
-          <div class="category-card">
-            <img src="{% static 'images/sci-fi.jpg' %}" alt="" class="card-img">
-            <div class="name">SCI-FI</div>
-            <div class="total">80</div>
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-
-
-    
-
-
-    <!--
-      - FOOTER SECTION
-    -->
-    <footer>
-
-      <div class="footer-content">
-
-        <div class="footer-brand">
-          <img src="{% static 'images/logo.png' %}" alt="" class="footer-logo">
-          <p class="slogan">Movies & TV Shows, Online cinema,
-            Movie database HTML Template.</p>
-
-
-          <div class="social-link">
-
-            <a href="#">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-            <a href="#">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-            <a href="#">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-            <a href="#">
-              <ion-icon name="logo-tiktok"></ion-icon>
-            </a>
-            <a href="#">
-              <ion-icon name="logo-youtube"></ion-icon>
-            </a>
-
-          </div>
+<!-- Footer-->
+        <footer class="footer text-center">
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Location-->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h4 class="text-uppercase mb-4">Location</h4>
+                        <p class="lead mb-0">
+                            2215 John Daniel Drive
+                            <br />
+                            Clark, MO 65243
+                        </p>
+                    </div>
+                    <!-- Footer Social Icons-->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h4 class="text-uppercase mb-4">Around the Web</h4>
+                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
+                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
+                    </div>
+                    <!-- Footer About Text-->
+                    <div class="col-lg-4">
+                        <h4 class="text-uppercase mb-4">About Freelancer</h4>
+                        <p class="lead mb-0">
+                            Freelance is a free to use, MIT licensed Bootstrap theme created by
+                            <a href="http://startbootstrap.com">Start Bootstrap</a>
+                            .
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Copyright Section-->
+        <div class="copyright py-4 text-center text-white">
+            <div class="container"><small>Copyright &copy; Your Website 2022</small></div>
         </div>
 
 
-        <div class="footer-links">
-          <ul>
 
-            <h4 class="link-heading">CineFlix</h4>
-
-            <li class="link-item"><a href="#">About us</a></li>
-            <li class="link-item"><a href="#">My profile</a></li>
-            <li class="link-item"><a href="#">Pricing plans</a></li>
-            <li class="link-item"><a href="#">Contacts</a></li>
-
-          </ul>
-
-          <ul>
-
-            <h4 class="link-heading">Browse</h4>
-
-            <li class="link-item"><a href="#">Live Tv</a></li>
-            <li class="link-item"><a href="#">Live News</a></li>
-            <li class="link-item"><a href="#">Live Sports</a></li>
-            <li class="link-item"><a href="#">Streaming Library</a></li>
-
-          </ul>
-
-          <ul>
-
-            <li class="link-item"><a href="#">TV Shows</a></li>
-            <li class="link-item"><a href="#">Movies</a></li>
-            <li class="link-item"><a href="#">Kids</a></li>
-            <li class="link-item"><a href="#">Collections</a></li>
-
-          </ul>
-
-          <ul>
-
-            <h4 class="link-heading">Help</h4>
-
-            <li class="link-item"><a href="#">Account & Billing</a></li>
-            <li class="link-item"><a href="#">Plans & Pricing</a></li>
-            <li class="link-item"><a href="#">Supported devices</a></li>
-            <li class="link-item"><a href="#">Accessibility</a></li>
-
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="footer-copyright">
-
-        <div class="copyright">
-          <p>&copy; copyright 2021 CineFlix</p>
-        </div>
-
-        <div class="wrapper">
-          <a href="#">Privacy policy</a>
-          <a href="#">Terms and conditions</a>
-        </div>
-
-      </div>
-
-    </footer>
-
-  </div>
-
-
-
-
-
-  <!--
-    - custom js link
-  -->
-  <script src="{% static 'js/main.js' %}"></script>
-
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</body>
-
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+  </body>
 </html>

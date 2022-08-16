@@ -1,113 +1,42 @@
-{% extends 'base2.html' %} 
+{% extends 'base.html' %} 
 
 {% block content%}
 
- <main>
-    <article>
-
-      <!-- 
-        - #MOVIE DETAIL
-      -->
-
-      <section class="movie-detail">
-        <div class="container">
-
-          <figure class="movie-detail-banner">
-
-            <img src="{{ object.movie_poster.url }}" alt="{{ object.title }}">
-
-            <button class="play-btn">
-              <ion-icon name="play-circle-outline"></ion-icon>
-            </button>
-
-          </figure>
-
-          <div class="movie-detail-content">
-
-            <p class="detail-subtitle">New Episodes</p>
-
-            <h1 class="h1 detail-title">
-              {{ object.title }}
-            </h1>
-
-            <div class="meta-wrapper">
-
-              <div class="badge-wrapper">
-                <div class="badge badge-fill">PG 13</div>
-
-                <div class="badge badge-outline">HD</div>
-              </div>
-
-              <div class="ganre-wrapper">
-                <a href="#">{{ object.movie_categories.name }}</a>
-
-              </div>
-
-              <div class="date-time">
-
-                <div>
-                  <ion-icon name="calendar-outline"></ion-icon>
-
-                  <time datetime="2021">{{ object.release_date }}</time>
+ <div class="container">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                    <div class="modal-body text-center pb-5">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{ object.title }}</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image-->
+                                    <img class="img-fluid rounded mb-5" src="{{ object.movie_poster.url }}" alt="..." />
+                                    <!-- Portfolio Modal - Text-->
+                                    <p class="mb-4">{{ object.description }}</p>
+                                    <a href="{{ object.movie_trailer_link }}" class="btn btn-primary" data-bs-dismiss="modal">
+                                        <i class="fa-brands fa-youtube"></i>
+                                        watch Trailler
+                                    </a>
+                                     {% if object.poster == user %}
+                                    <div class="btn-toolbar mb-3">
+                                    <a href="{% url 'movie_update' object.id %}" class="btn btn-outline-primary">Update</a>
+                                    <a href="{% url 'movie_delete' object.id %}" class="btn btn-outline-danger">Delete</a></div>
+                                </div>
+                                 {% endif %}
+                               
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div>
-                  <ion-icon name="time-outline"></ion-icon>
-
-                  <time datetime="PT115M">{{ object.length }}</time>
-                </div>
-
-              </div>
-
             </div>
-
-            <p class="storyline">
-              {{ object.description }}
-            </p>
-
-            <div class="details-actions">
-
-              <button class="share">
-                <ion-icon name="share-social"></ion-icon>
-
-                <span>Share</span>
-              </button>
-
-              <div class="title-wrapper">
-                <p class="title">Prime Video</p>
-
-                <p class="text">Streaming Channels</p>
-              </div>
-
-              <button class="btn btn-primary">
-                <ion-icon name="play"></ion-icon>
-
-                <a href="{{ object.movie_trailer_link }}"><span>Watch Trail</span></a>
-              </button>
-
-
-            <a href="./assets/images/movie-4.png" download class="download-btn">
-              <span>Download</span>
-
-              <ion-icon name="download-outline"></ion-icon>
-            </a>
-
-          </div>
-
         </div>
-         {% if object.poster == user %}
-        <div>
-           <a class="btn btn-secondary btn-sm mt-1" href="{% url 'movie_update' object.id %}">update</a>
-        <a class="btn btn-danger btn-sm mt-1" href="{% url 'movie_delete' object.id %}">delete</a>
-        </div>
-       
-
-        {% endif %}
-            </div>
-      </section>
-
-    </article>
-  </main>
-
-
 {% endblock %}
