@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'movie.apps.MovieConfig',
     'users.apps.UsersConfig',
-    'django_forms_bootstrap',
 ]
 
 MIDDLEWARE = [

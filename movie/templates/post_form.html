@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load bootstrap_tags %}
 {% block content %}
   <section class="vh-70 bg-image"
   style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
@@ -13,7 +12,7 @@
 
               <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form|as_bootstrap }}
+                {{ form }}
 
                 <div class="d-flex justify-content-center">
                   <button class="btn btn-outline-info" type="submit">Add Movie</button>
