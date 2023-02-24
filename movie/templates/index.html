@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<header class="masthead bg-image text-white text-center" style="background-image: url('https://wallpapercave.com/dwp1x/wp5483678.jpg');background-repeat: no-repeat;background-size: cover; background-position:center ; ">
+            <div class="container d-flex align-items-center flex-column">
+                <!-- Masthead Avatar Image-->
+                <img class="masthead-avatar mb-5" src="assets/img/portfolio/endgame.jpg" alt="..." />
+                <!-- Masthead Heading-->
+                <h1 class="masthead-heading text-uppercase mb-0">Movie Cinerwa</h1>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Masthead Subheading-->
+                <p class="masthead-subheading font-weight-light mb-0">Action - Comedy - Animation</p>
+            </div>
+        </header>
+  <!-- Portfolio Section-->
+        <section class="page-section portfolio" id="portfolio">
+            <div class="container">
+                <!-- Portfolio Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Movies</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Grid Items-->
+                <div class="row justify-content-center">
+                
+                    <!-- Portfolio Item 2-->
+                {% for movie in movies %}
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal2">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white">
+                                    <a href="{% url 'movies_detail' movie.id %}" style="color: white; text-decoration: none";><h3>{{ movie.title }}</h3></a>
+                                    <p>{{ movie.description}}</p>
+                                    <a href="{{ movie.movie_trailer_link.url }}" class="btn btn-outline-primary">watch trailler</a>
+                                </div>
+                            </div>
+                            <img class="fit-images img-fluid" src="{{ movie.movie_poster.url }}" alt="..." style="width: 100%;object-fit: cover; height: 255px;" />
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+
+                <!-- pagination -->
+
+        {% if is_paginated %}
+        <div class="btn btn-group">
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-secondary mb-4" href="?page=1">First</a>
+        <a class="btn btn-outline-secondary mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-outline-secondary mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-secondary mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-secondary mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn btn-outline-secondary mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+  </div>
+    {% endif %}
+                   
+                </div>
+                
+            </div>
+        </section>
+{% endblock %}

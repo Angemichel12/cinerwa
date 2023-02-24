@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content%}
+	{% for fov in favourites_movies %}
+	<article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ fov.title }}</a>
+        <small class="text-muted">{{ fov.realesed_date|date:"F d, Y" }}</small>
+      </div>
+      <h2><a class="article-title" href="#"></a></h2>
+      <p class="article-content">{{ fov.description }}</p>
+    </div>
+  </article>
+  {% endfor %}
+{% endblock %}
