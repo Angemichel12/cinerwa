@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'movie.apps.MovieConfig',
     'users.apps.UsersConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -85,15 +86,10 @@ WSGI_APPLICATION = 'Cinemania.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd93alk84ntfc47',
-        'USER': 'uymrkwronxqorr',
-        'PASSWORD': '16e98648dac219f2b1748645ea435d0134dd5bce337252a9371594a31b5c501b',
-        'HOST': 'ec2-100-26-39-41.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 import dj_database_url
 db_from_env=dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)

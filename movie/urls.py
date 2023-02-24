@@ -12,6 +12,7 @@ from .views import(homepage,
 	search_movie,
 	
 	) 
+from .apiviews import get_movie_detail, get_movie_list
 
 
 
@@ -24,6 +25,8 @@ urlpatterns = [
 	path('fav/<int:id>', favourite_add, name='favourite_add'),
 	path('favourite/', movie_favourite_list, name='favourite_list'),
 	path('search_movie', search_movie, name='search-movie'),
+    path('movies/',get_movie_list, name='movies_list_api'),
+    path('movies<int:pk>/',get_movie_detail, name='movies_detial_api'),
 
 	]
 
